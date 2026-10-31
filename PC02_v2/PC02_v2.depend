@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1793407985 source:c:\users\sergio\desktop\upn\ciclo_7\_computacion_grafica_y_visual\docs\codeblocks\pc02_v2\main.cpp
+	<GL/glut.h>
+	<math.h>
+
