@@ -65,8 +65,48 @@ void dibujar(){
     //Esfera Wire
     glPushMatrix();
         glColor3ub(0,255,0);
-        //glTranslated(-20,0,0);
+        glTranslated(-15,0,0);
         glutWireSphere(4,50,50);
+    glPopMatrix();
+
+    //Tetera solida
+    glPushMatrix();
+        glColor3ub(228,0,247);
+        glTranslated(0,10,5);
+        glutSolidTeapot(3);
+    glPopMatrix();
+
+    //Tetera Wire
+    glPushMatrix();
+        glTranslated(0,10,0);
+        glutWireTeapot(3);
+    glPopMatrix();
+
+    //Torus solido
+    glPushMatrix();
+        glColor3ub(250,180,0);
+        glTranslated(0,-15,0);
+        glutSolidTorus(2,4,50,50);
+    glPopMatrix();
+
+    //Torus Wile
+    glPushMatrix();
+        glTranslated(0,-15,-5);
+        glutWireTorus(2,4,50,50);
+    glPopMatrix();
+
+    //Cilindro
+    glPushMatrix();
+        glColor3ub(0,200,200);
+        glTranslated(0,0,15);
+        gluCylinder(gluNewQuadric(),3,3,5,50,50);
+    glPopMatrix();
+
+    //disco
+    glPushMatrix();
+        glColor3ub(0,200,200);
+        //glTranslated(0,0,15);
+        gluDisk(gluNewQuadric(),1,4,50,50);
     glPopMatrix();
 
     glutSwapBuffers();
