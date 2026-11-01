@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1793490459 source:c:\users\sergio\desktop\upn\ciclo_7\_computacion_grafica_y_visual\docs\codeblocks\semana03wapersonaje\main.cpp
+	<GL/glut.h>
+	<math.h>
+	<iostream>
+

@@ -69,11 +69,27 @@ void dibujarejes(){
     glEnd();
 }
 
-void tetera(){
+void pie(float posx){
     glPushMatrix();
-        glColor3ub(228,0,247);
-        glTranslated(0,2,0);
-        glutSolidTeapot(3);
+        glTranslated(posx,0,0);
+        glScaled(1.5,0.3,1.5);
+        glutSolidSphere(3,50,50);
+    glPopMatrix();
+}
+
+void pierna(float posx){
+    glPushMatrix();
+        glTranslated(posx,0,0);
+        glRotated(-90,1,0,0);
+        gluCylinder(gluNewQuadric(),4,4,4,50,50);
+    glPopMatrix();
+}
+
+void cuerpo(float posy){
+    glPushMatrix();
+        glTranslated(0,posy,0);
+        glRotated(-90,1,0,0);
+        gluCylinder(gluNewQuadric(),8,6,7,50,50);
     glPopMatrix();
 }
 
@@ -88,7 +104,16 @@ void dibujar(){
 
     piso();
     dibujarejes();
-    tetera();
+
+    glColor3ub(0,0,0);
+    pie(-3);
+    pie(3);
+
+    glColor3ub(255,127,0);
+    pierna(-3);
+    pierna(3);
+
+    cuerpo(3);
 
     glutSwapBuffers();
 }
@@ -102,13 +127,13 @@ void teclado_especial(int tecla, int x, int y){
     //cout<<tecla<<endl;
     switch(tecla){
         case 100:
-            angulo += 0.5;
+            angulo += 0.3;
             break;
         case 101:
             camaraY += 0.2;
             break;
         case 102:
-            angulo -= 0.5;
+            angulo -= 0.3;
             break;
         case 103:
             camaraY -= 0.2;
