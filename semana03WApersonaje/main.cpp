@@ -259,6 +259,23 @@ void timer(int t){
     glutTimerFunc(0,timer,0);
 }
 
+void teclado(unsigned char key, int x, int y){
+    switch(key){
+        case 'n':
+            radio -= 0.5;
+            break;
+        case 'm':
+            radio += 0.5;
+            break;
+        case 'j':
+            centroY -= 0.5;
+            break;
+        case 'k':
+            centroY += 0.5;
+            break;
+    }
+}
+
 void teclado_especial(int tecla, int x, int y){
     //cout<<tecla<<endl;
     switch(tecla){
@@ -282,10 +299,11 @@ int main(int argc, char* argv[]){
     glutInitDisplayMode(GLUT_RGBA | GLUT_DEPTH | GLUT_DOUBLE);
     glutInitWindowSize(1420, 880);
     glutInitWindowPosition(0,0);
-    glutCreateWindow("Computacion Grafica 3D - Personaje");
+    glutCreateWindow("Computacion Grafica 3D - Personaje Terminado + ZOOM");
     glutReshapeFunc(iniciarVentana);
     glutDisplayFunc(dibujar);
     glutTimerFunc(0,timer,0);
+    glutKeyboardFunc(teclado);
     glutSpecialFunc(teclado_especial);
     glutMainLoop();
     return 0;
