@@ -93,27 +93,163 @@ void cuerpo(float posy){
     glPopMatrix();
 }
 
+void brazo(float posx, float rot){
+    glPushMatrix();
+        glTranslated(posx,9,0);
+        glRotated(90,0,1,0);
+        glRotated(rot,1,0,0);
+        gluCylinder(gluNewQuadric(),1.5,1.5,4.8,50,50);
+    glPopMatrix();
+}
+
+void mano(float posx){
+    glPushMatrix();
+        glTranslated(posx,5.5,0);
+        glScaled(1,0.75,0.65);
+        glutSolidSphere(2,50,50);
+    glPopMatrix();
+}
+
+void lineaCuerpo(){
+    glPushMatrix();
+        glTranslated(0,6.5,6.6);
+        glRotated(-16,1,0,0);
+        glScaled(0.5,7,1);
+        glutSolidCube(1);
+    glPopMatrix();
+}
+
+void cuello(){
+    glPushMatrix();
+        glTranslated(0,10,0);
+        glRotated(-90,1,0,0);
+        glScaled(0.6,0.6,0.6);
+        glutSolidTorus(1,10,50,50);
+    glPopMatrix();
+}
+
+void cabeza(){
+    glPushMatrix();
+        glColor3ub(255,204,153);
+        glTranslated(0,15.2,0);
+        glutSolidSphere(8.2,100,100);
+    glPopMatrix();
+}
+
+void gorra(){
+    // Esfera
+    glPushMatrix();
+        glColor3ub(76,51,25);
+        glTranslated(0,16,0);
+        glutSolidSphere(7.8,100,100);
+    glPopMatrix();
+
+    // Aro
+    glPushMatrix();
+        glColor3ub(255,178,0);
+        glTranslated(0,18.8,0);
+        glRotated(-90,1,0,0);
+        glutSolidTorus(1,7.2,50,50);
+    glPopMatrix();
+
+    // Bola Superior
+    glPushMatrix();
+        glTranslated(0,23,0);
+        glutSolidSphere(3,50,50);
+    glPopMatrix();
+}
+
+void diente(float posx){
+    glPushMatrix();
+        glTranslated(posx,12.3,7.7);
+        glutSolidCube(0.35);
+    glPopMatrix();
+}
+
+void boca(){
+    glPushMatrix();
+        glColor3ub(0,0,0);
+        glTranslated(0,12.5,7.35);
+        glScaled(1,0.8,0.2);
+        glutSolidSphere(2,50,50);
+    glPopMatrix();
+
+    glColor3ub(255,255,255);
+    diente (0.2);
+    diente (-0.2);
+}
+
+void ojo(float posx, float rot){
+    glPushMatrix();
+        glColor3ub(255,255,255);
+        glTranslated(posx,15,6.9);
+        glRotated(rot,0,0,1);
+        glScaled(0.9,0.7,0.7);
+        glutSolidSphere(2.8,50,50);
+    glPopMatrix();
+}
+
+void pupila(float posx){
+    glPushMatrix();
+        glColor3ub(0,0,0);
+        glTranslated(posx, 15, 8.5);
+        glutSolidSphere(0.7,50,50);
+    glPopMatrix();
+}
+
+void ceja(float posx, float rot){
+    glPushMatrix();
+        glColor3ub(0,0,0);
+        glTranslated(posx, 19, 8);
+        glRotated(-90,0,1,0);
+        glRotated(rot,1,0,0);
+        glScaled(0.3,1,1);
+        gluCylinder(gluNewQuadric(), 0.5,0.1,3,50,50);
+    glPopMatrix();
+}
+
 void dibujar(){
     inicializarLuces();
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
+    //gluLookAt(camaraX, CamaraY, CamaraZ, 0,0,0,0,1,0);
     gluLookAt(radio * cos(angulo),camaraY,radio * sin(angulo),0,centroY,0,0,1,0);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glEnable(GL_BLEND);
+    glClearColor(66/255.0, 211/255.0, 242/255.0,1);
 
     piso();
     dibujarejes();
+
+    ceja(3,45);
+    ceja(-3,135);
+    pupila(1.7);
+    pupila(-1.7);
+    ojo(1.7,-45);
+    ojo(-1.7,45);
+    boca();
+    gorra();
+    cabeza();
+
+    glColor3ub(0,0,0);
+    cuello();
+    lineaCuerpo();
 
     glColor3ub(0,0,0);
     pie(-3);
     pie(3);
 
+    glColor3ub(146,82,0);
+    mano(7.5);
+    mano(-7.5);
+
     glColor3ub(255,127,0);
     pierna(-3);
     pierna(3);
-
     cuerpo(3);
+    brazo(5,50);
+    brazo(-5,130);
 
     glutSwapBuffers();
 }
@@ -130,13 +266,13 @@ void teclado_especial(int tecla, int x, int y){
             angulo += 0.3;
             break;
         case 101:
-            camaraY += 0.2;
+            camaraY += 0.5;
             break;
         case 102:
             angulo -= 0.3;
             break;
         case 103:
-            camaraY -= 0.2;
+            camaraY -= 0.5;
             break;
     }
 }

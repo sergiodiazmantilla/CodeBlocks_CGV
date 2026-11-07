@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1793911371 source:c:\users\sergio\desktop\upn\ciclo_7\_computacion_grafica_y_visual\docs\codeblocks\pc03\main.cpp
+1793916381 source:c:\users\sergio\desktop\upn\ciclo_7\_computacion_grafica_y_visual\docs\codeblocks\pc03\main.cpp
 	<GL/glut.h>
 	<math.h>
 	<iostream>
