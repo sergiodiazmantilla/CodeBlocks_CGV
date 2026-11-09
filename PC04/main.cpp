@@ -14,11 +14,11 @@ float angulo    = 2.55;
 float centroY   = 10;
 
 void iniciarVentana(int w, int h){
-    glViewport(0,0,w,h); //punto de vista
-    glMatrixMode(GL_PROJECTION); // cambiar la forma en la que vemos la profundida
+    glViewport(0,0,w,h);
+    glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     float aspect3d = ((float)w / (float)h);
-    gluPerspective(60,aspect3d,1,200); // distancia a la que esta ubicado el enfoque del observador
+    gluPerspective(60,aspect3d,1,200);
 }
 
 void inicializarLuces(){
@@ -43,7 +43,7 @@ void inicializarLuces(){
 }
 
 void piso(){
-    glColor3ub(214,214,214);
+    glColor3ub(139, 69, 19);
     glBegin(GL_QUADS);
         glVertex3d(-100,0,-100);
         glVertex3d(100,0,-100);
@@ -71,8 +71,8 @@ void dibujarejes(){
 
 void pie(float posx){
     glPushMatrix();
-        glTranslated(posx,0,0);
-        glScaled(1.5,0.3,1.5);
+        glTranslated(posx,0,0.3);
+        glScaled(1.5,0.5,1.5);
         glutSolidSphere(3,50,50);
     glPopMatrix();
 }
@@ -81,7 +81,7 @@ void pierna(float posx){
     glPushMatrix();
         glTranslated(posx,0,0);
         glRotated(-90,1,0,0);
-        gluCylinder(gluNewQuadric(),4,4,4,50,50);
+        gluCylinder(gluNewQuadric(),4,4,6,50,50);
     glPopMatrix();
 }
 
@@ -130,7 +130,7 @@ void cuello(){
 
 void cabeza(){
     glPushMatrix();
-        glColor3ub(255,204,153);
+        glColor3ub(235, 169, 99);
         glTranslated(0,15.2,0);
         glutSolidSphere(8.2,100,100);
     glPopMatrix();
@@ -139,14 +139,14 @@ void cabeza(){
 void gorra(){
     // Esfera
     glPushMatrix();
-        glColor3ub(76,51,25);
+        glColor3ub(19, 19, 161);
         glTranslated(0,16,0);
         glutSolidSphere(7.8,100,100);
     glPopMatrix();
 
     // Aro
     glPushMatrix();
-        glColor3ub(255,178,0);
+        glColor3ub(209, 0, 0);
         glTranslated(0,18.8,0);
         glRotated(-90,1,0,0);
         glutSolidTorus(1,7.2,50,50);
@@ -154,6 +154,7 @@ void gorra(){
 
     // Bola Superior
     glPushMatrix();
+        glColor3ub(209, 0, 0);
         glTranslated(0,23,0);
         glutSolidSphere(3,50,50);
     glPopMatrix();
@@ -209,48 +210,125 @@ void ceja(float posx, float rot){
     glPopMatrix();
 }
 
-// Ovni
-void ovni(float posy){
+void base(){
     glPushMatrix();
-        // Posición general del OVNI en la escena
-        glTranslated(10, posy, 0);
-
-        // --- 1. Plato principal (Cuerpo del OVNI) ---
-        glPushMatrix();
-            glScaled(1.0, 0.3, 1.0); // Achatamos una esfera para darle forma de platillo
-            glColor3f(0.6f, 0.6f, 0.6f); // Color gris metálico
-            gluSphere(gluNewQuadric(), 4.0, 30, 30);
-        glPopMatrix();
-
-        // --- 2. Borde o anillo central (Detalle de la nave) ---
-        glPushMatrix();
-            glRotated(90, 1, 0, 0);
-            glColor3f(0.2f, 0.2f, 0.2f); // Borde oscuro
-            gluCylinder(gluNewQuadric(), 4.1, 4.1, 0.4, 30, 10);
-        glPopMatrix();
-
-        // --- 3. Cúpula superior (Cristal translúcido) ---
-        glPushMatrix();
-            glTranslated(0, 0.4, 0);
-            glScaled(1.0, 0.8, 1.0);
-            // Recuerda tener activo glBlend en tu escena para que la transparencia funcione
-            glColor4f(0.2f, 0.8f, 1.0f, 0.6f); // Azul claro translúcido
-            gluSphere(gluNewQuadric(), 1.8, 20, 20);
-        glPopMatrix();
-
-        // --- 4. Luces inferiores / Propulsor ---
-        glPushMatrix();
-            glTranslated(0, -1.0, 0);
-            glRotated(90, 1, 0, 0);
-            glColor3f(0.0f, 1.0f, 0.0f); // Luz verde brillante abajo
-            gluCylinder(gluNewQuadric(), 0.8, 0.2, 0.8, 20, 10);
-        glPopMatrix();
+        glTranslated(0, 3, 0);
+        glRotated(-90,1,0,0);
+        gluDisk(gluNewQuadric(),0,8,50,50);
     glPopMatrix();
 }
 
+void ovni(){
+    // Platillo
+    glPushMatrix();
+        glScaled(1.0, 0.3, 1.0);
+        glColor3ub(192,192,192);
+        gluSphere(gluNewQuadric(), 4.0, 30, 30);
+    glPopMatrix();
 
-// Detalles Escenario
+    // Borde o anillo central
+    glPushMatrix();
+        glRotated(90, 1, 0, 0);
+        glColor3ub(0, 0, 0);
+        gluCylinder(gluNewQuadric(), 4.1, 4.0, 0.35, 30, 10);
+        glutSolidTorus(0.5, 4.1, 30, 30);
+    glPopMatrix();
 
+    // Cúpula superior
+    glPushMatrix();
+        glTranslated(0, 0.4, 0);
+        glScaled(1.0, 0.8, 1.0);
+        glColor4f(0.2f, 0.8f, 1.0f, 0.6f);
+        gluSphere(gluNewQuadric(), 1.8, 20, 20);
+    glPopMatrix();
+
+    // Propulsor
+    glPushMatrix();
+        glTranslated(0, -1.0, 0);
+        glRotated(90, 1, 0, 0);
+        glColor3ub(0, 255, 0);
+        gluCylinder(gluNewQuadric(), 1, 0.2, 0.7, 20, 10);
+    glPopMatrix();
+}
+
+void ojom(float posx){
+    glPushMatrix();
+        glColor3ub(0, 0, 0);
+        glTranslated(posx, 2.8, 1.2);
+        glutSolidSphere(0.3, 10, 10);
+    glPopMatrix();
+}
+
+void marciano(){
+    // Cuerpo
+    glPushMatrix();
+        glColor3ub(0, 255, 0);
+        glRotated(-90, 1, 0, 0);
+        gluCylinder(gluNewQuadric(), 1.0, 0.5, 3.0, 20, 20);
+    glPopMatrix();
+
+    // Cabeza
+    glPushMatrix();
+            glTranslated(0, 3.5, 0);
+            glColor3ub(0, 255, 0);
+            glutSolidSphere(1.5, 30, 30);
+    glPopMatrix();
+
+    ojom(0.5);
+    ojom(-0.5);
+}
+
+void luz_abd(){
+    glPushMatrix();
+        glColor4ub(200, 150, 50, 130);
+        glRotated(-90,1,0,0);
+        gluCylinder(gluNewQuadric(),20,5,60,80,80);
+    glPopMatrix();
+}
+
+void caja(float posx, float posy, float posz, float rot){
+    glPushMatrix();
+        glTranslated(posx, posy, posz);
+        glRotated(rot, 0, 1, 0);
+        glRotated(15, 1, 0, 1);
+        glColor3ub(139, 69, 19);
+        glutSolidCube(3.5);
+    glPopMatrix();
+}
+
+void arbol(float posx, float posy, float posz, float rot){
+    glPushMatrix();
+        glTranslated(posx, posy, posz);
+        glRotated(rot, 0, 1, 1);
+
+        // Tronco
+        glPushMatrix();
+            glColor3ub(100, 50, 0);
+            glRotated(-90, 1, 0, 0);
+            gluCylinder(gluNewQuadric(), 1.0, 1.0, 6.0, 20, 20);
+        glPopMatrix();
+
+        // Copa del árbol
+        glPushMatrix();
+            glTranslated(0, 6.5, 0);
+            glColor3ub(34, 139, 34);
+            glutSolidSphere(3.5, 30, 30);
+        glPopMatrix();
+
+    glPopMatrix();
+}
+
+void cajas(){
+    caja(8.0, 3, 5.0, 25.0);
+    caja(-9.0, 7.0, -6.0, -30.0);
+    caja(6.0, 15.0, -8.0, 45.0);
+}
+
+void arboles(){
+    arbol(-15.0, 2.0, 10.0, 5.0);
+    arbol(14.0, 9.0, -12.0, -5.0);
+    arbol(-4.0, 22.0, -5.0, 25.0);
+}
 
 void dibujar(){
     inicializarLuces();
@@ -265,55 +343,83 @@ void dibujar(){
 
     piso();
     dibujarejes();
-    ovni(35);
+
     // Humano
     glPushMatrix();
-        glTranslated(0,3,0);
-        glRotated(-25,1,0,0);
-        ceja(3.5,-20);
-        ceja(-3.5,-160);
-        //ceja(2.5, 45);
-        //ceja(-2.5, 135);
-        pupila(1.7);
-        pupila(-1.7);
-        ojo(1.7,-45);
-        ojo(-1.7,45);
-        boca();
-        gorra();
-        cabeza();
+        glTranslated(0,2,0);
+        glScaled(0.5, 0.5, 0.5);
 
-        glColor3ub(0,0,0);
-        cuello();
-        lineaCuerpo();
+        glPushMatrix();
+            glTranslated(0,3,0);
+            glRotated(-20,1,0,0);
+            ceja(3.5,-20);
+            ceja(-3.5,-160);
+            pupila(1.7);
+            pupila(-1.7);
+            ojo(1.7,-45);
+            ojo(-1.7,45);
+            boca();
+            gorra();
+            cabeza();
 
-        glColor3ub(255,127,0);
-        cuerpo(3);
+            glColor3ub(209, 0, 0);
+            cuello();
 
+            glColor3ub(0, 0, 0);
+            lineaCuerpo();
+
+            glColor3ub(166, 60, 25);
+            cuerpo(3);
+            base();
+        glPopMatrix();
+
+        glPushMatrix();
+            glTranslated(0,2,-2.5);
+            glColor3ub(209, 0, 0);
+            mano(7.5);
+            mano(-7.5);
+
+            glColor3ub(166, 60, 25);
+            brazo(5,50);
+            brazo(-5,130);
+        glPopMatrix();
+
+        glPushMatrix();
+            glTranslated(0,3,-1);
+            glRotated(5,1,0,0);
+            glColor3ub(19, 19, 161);
+            pierna(-3);
+            pierna(3);
+        glPopMatrix();
+
+        glPushMatrix();
+            glTranslated(0,2.6,-1);
+            glRotated(16.2,1,0,0);
+            glColor3ub(0,0,0);
+            pie(-3);
+            pie(3);
+        glPopMatrix();
     glPopMatrix();
+
+    // Marciano
     glPushMatrix();
-        glTranslated(0,1,-2.5);
-        //glRotated(-30,1,0,0);
-
-        glColor3ub(146,82,0);
-        mano(7.5);
-        mano(-7.5);
-
-        glColor3ub(0,0,0);
-        pie(-3);
-        pie(3);
-
-        glColor3ub(255,127,0);
-        pierna(-3);
-        pierna(3);
-        brazo(5,50);
-        brazo(-5,130);
-
+        glTranslated(0,70.5,5);
+        glRotated(20,1,0,0);
+        glScaled(0.8,0.8,0.8);
+        marciano();
     glPopMatrix();
 
     // Ovni
+    glPushMatrix();
+        glTranslated(0,60,0);
+        glScaled(9,9,9);
+        ovni();
+    glPopMatrix();
 
     // Detalles Escenario
-
+    cajas();
+    arboles();
+    luz_abd();
     glutSwapBuffers();
 }
 
@@ -340,7 +446,6 @@ void teclado(unsigned char key, int x, int y){
 }
 
 void teclado_especial(int tecla, int x, int y){
-    //cout<<tecla<<endl;
     switch(tecla){
         case 100:
             angulo += 0.3;
