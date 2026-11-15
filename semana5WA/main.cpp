@@ -16,6 +16,7 @@ float radio     = 42;
 float angulo    = 2.55;
 float centroY   = 10;
 
+GLUquadric* quad;
 
 void loadTextureFromFile(const char* filename, int index){
     RgbImage theTextMap(filename);
@@ -32,7 +33,7 @@ void cargarImagenes(){
     loadTextureFromFile("texturas/cuadros.bmp",0);
     loadTextureFromFile("texturas/goku.bmp",1);
     loadTextureFromFile("texturas/pared.bmp",2);
-
+    loadTextureFromFile("texturas/tierra_cmp.bmp",3);
 }
 
 void iniciarVentana(int w, int h){
@@ -291,6 +292,20 @@ void pared(){
     glDisable(GL_TEXTURE_2D);
 }
 
+void tierra(){
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, arregloTexturas[3]);
+    glPushMatrix();
+        glColor3ub(255,255,255);
+        glTranslated(0,16,0);
+        glRotated(-90,1,0,0);
+        quad = gluNewQuadric();
+        gluQuadricTexture(quad,1);
+        gluSphere(quad,4,50,50);
+    glPopMatrix();
+    glDisable(GL_TEXTURE_2D);
+}
+
 void dibujar(){
     inicializarLuces();
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -308,6 +323,8 @@ void dibujar(){
     cubo();
     ladoCubo();
     pared();
+    tierra();
+
     camioneta();
 
     glutSwapBuffers();
