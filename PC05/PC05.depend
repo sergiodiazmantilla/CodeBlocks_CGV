@@ -1,0 +1,16 @@
+# depslib dependency file v1.0
+1794886593 source:c:\users\sergio\desktop\upn\ciclo_7\_computacion_grafica_y_visual\docs\codeblocks\pc05\main.cpp
+	<GL/glut.h>
+	<math.h>
+	<iostream>
+	"RgbImage/RgbImage.h"
+
+1591583884 c:\users\sergio\desktop\upn\ciclo_7\_computacion_grafica_y_visual\docs\codeblocks\pc05\rgbimage\rgbimage.h
+	<stdio.h>
+	<assert.h>
+
+1591582242 source:c:\users\sergio\desktop\upn\ciclo_7\_computacion_grafica_y_visual\docs\codeblocks\pc05\rgbimage\rgbimage.cpp
+	"RgbImage.h"
+	<windows.h>
+	"GL/gl.h"
+
